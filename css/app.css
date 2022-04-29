@@ -14,25 +14,33 @@ header h1{
     padding: 35px;
     font-size: 50px;
 }
-h2{
+.wrapper h2{
     text-align: center;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    padding: 35px;
-    font-size: 50px;
+    padding: 10px;
+    font-size: 30px;
+}
+header+h2{
+    text-align: center;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding: 20px;
+    font-size: 40px;
 }
 .wrapper{
     background-color: #D1DAFF;
     color: #5F6A99;
     width: 98%;
-    height: 520px;
+    height: auto;
     margin: 1%;
 }
 .wrapper .page{
-    position: fixed;
-    top: 40%;
+    position: relative;
+    top: 43%;
     left: 35%;
+    bottom: 20%;
+    right: 35%;
     width:30em;
-    height:18em;
+    height:22em;
     margin-top: -9em;
     border: 1px solid #ccc;
     background-color: #f3f3f3;

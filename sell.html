@@ -12,13 +12,33 @@
         <header>
             <h1>Sell Book</h1>
         </header>
+        <h2>Delete Book Records</h2>
         <div class="wrapper">
-            <h2>Prototype Web App for Borrow Books</h2>
-            <div class="page">
-                <p><a href="insert.html">Insert New Book</a></p>
-                <p><a href="update.html">Update/Coorect Book Data</a></p>
-                <p><a href="show.html">Show Book</a></p>
-                <p><a href="sell.html">Sell Book</a></p>
+            <div class="container">
+                <h2>Enter Book Information</h2>
+                <form id="bookEntry" method="post">
+                <div class="form-group">
+                <span><label for="bookId">Book Registration ID:</label> <label id="bookIdMsg">
+                </label></span>
+                <input type="text" class="form-control" name="bookId" id="bookId"
+                placeholder="Enter Book Registration ID" required>
+                </div>
+                <input type="button" class="btn btn-primary" id="bookDel" value="Sell" onclick="deleteBook();">
+                </form>
+            </div>
+            <script>
+                function resetForm() {
+                $("#bookId").val("")
+                $("#bookId").focus();
+                }
+                function deleteBook() {
+                var bookIdVar = document.getElementById("bookId").value;
+                var delReqStr = createREMOVERecordRequest("90939132|-31949286186169374|90946554", "Books", "Book-Author", bookIdVar);
+                jQuery.ajaxSetup({async: false});
+                var resultObj = executeCommand(delReqStr, "http://api.login2explore.com:5577", "/api/iml");
+                jQuery.ajaxSetup({async: true});
+                resetForm();
+                }
             </div>
         </div>
         <footer>
