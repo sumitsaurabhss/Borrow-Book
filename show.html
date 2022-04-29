@@ -12,15 +12,52 @@
         <header>
             <h1>Display Books</h1>
         </header>
-        <div class="wrapper">
-            <h2>Prototype Web App for Borrow Books</h2>
-            <div class="page">
-                <p><a href="insert.html">Insert New Book</a></p>
-                <p><a href="update.html">Update/Coorect Book Data</a></p>
-                <p><a href="show.html">Show Book</a></p>
-                <p><a href="sell.html">Sell Book</a></p>
+            <div class="wrapper">
+                <input id="bookId" maxlength="50" placeholder="Book Registration ID" name="bookId" type="text" /><br><br>
+                    <input type="button" value="SHOW DATA" onclick="showData();"/>
+                <p id="show"></p>
+                <script>
+                    function executeCommand(reqString, dbBaseUrl, apiEndPointUrl) {
+                        var url = dbBaseUrl + apiEndPointUrl;
+                        var jsonObj;
+                        $.post(url, reqString, function (result) {
+                            jsonObj = JSON.parse(result);
+                        }).fail(function (result) {
+                            var dataJsonObj = result.responseText;
+                            jsonObj = JSON.parse(dataJsonObj);
+                        });
+                        return jsonObj;
+                    }
+                    function resetForm() {
+                    $("#bookId").val("")
+                    $("#bookId").focus();
+                    }
+                    function showData(){
+                        var token = "90939132|-31949286186169374|90946554";
+                        var dbname = "Books";
+                        var relationName = "Book-Author";
+                        var id = document.getElementById("bookId").value;
+                        var jsonStr = {
+                            bookId : id
+                        };
+                        var reqString = createGETRequest(token, dbname, relationName, JSON.stringify(jsonStr));
+                        jQuery.ajaxSetup({async: false});
+                        var resultObj = executeCommand(reqString,
+                                "http://api.login2explore.com:5577", "/api/irl");
+                        jQuery.ajaxSetup({async: true});
+                        
+                        var data = JSON.stringify(resultObj);
+                        
+                        var res = data.split("\"");
+                        alert(res);
+                        var mainContainer = document.getElementById("show");
+                        mainContainer.innerHTML = "Book Name : " + res[18].replace("\\","") + "      Author : " + res[10].replace("\\","")
+                            + "     Course : " + res[22].replace("\\","") + "        Branch : " + res[14].replace("\\", ""); 
+
+                        resetForm(); 
+                    }
+                </script>
             </div>
-        </div>
         <footer>
             <p>&copy; Copyright Sumit Saurabh 2022</p>
         </footer>
